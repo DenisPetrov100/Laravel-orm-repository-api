@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "bae43965-adb5-4a18-9979-a1087910dc13",
+		"name": "Lara-api-repo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9808337"
+	},
+	"item": [
+		{
+			"name": "Shops",
+			"item": [
+				{
+					"name": "shops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/shops",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"shops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shops with products test 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/shops?apikey=123&products[price]=lte:20&products[name]=like:%s%",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"shops"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "123"
+								},
+								{
+									"key": "products[price]",
+									"value": "lte:20"
+								},
+								{
+									"key": "products[name]",
+									"value": "like:%s%"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shops with products test 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/shops?apikey=123&products[price]=gte:20&products[name]=like:%s%&sort[]=category&sort[]=id,desc",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"shops"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "123"
+								},
+								{
+									"key": "products[price]",
+									"value": "gte:20"
+								},
+								{
+									"key": "products[name]",
+									"value": "like:%s%"
+								},
+								{
+									"key": "sort[]",
+									"value": "category"
+								},
+								{
+									"key": "sort[]",
+									"value": "id,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shops with products test 3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/shops?apikey=123&products[price]=20&sort[]=id,desc&category[]=food",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"shops"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "123"
+								},
+								{
+									"key": "products[price]",
+									"value": "20"
+								},
+								{
+									"key": "sort[]",
+									"value": "id,desc"
+								},
+								{
+									"key": "category[]",
+									"value": "food"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/products",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "123",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "apikey",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "127.0.0.1:8000",
+			"type": "string"
+		}
+	]
+}
