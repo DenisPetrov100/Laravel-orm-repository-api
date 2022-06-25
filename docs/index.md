@@ -1,37 +1,65 @@
-## Welcome to GitHub Pages
+# About the App
 
-You can use the [editor on GitHub](https://github.com/DenisPetrov100/Laravel-orm-repository-api/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+This is Laravel API (no any UI). 
+Database has 3 data tables: shops, products and associative table product_shop.
+The product_shop table has price field for every entry. It specify the price of associated product in associated shop.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The API has two endpoints: 
+- `/api/shops`
+- `/api/products`
 
-### Markdown
+You can sort and filter `/api/shops` entry point responce by any field and by "pivot" field price.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The `/api/products` entry point of API is just for show all products.
 
+For example you can find all shops with products chipper 10.
+
+Project includes a postman collection with some query examples.
+The authorization is throgh the basic middleware, by checking `apikey=123` in GET param
+
+# Requests
+
+Request of all products
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+GET /api/products?apikey=123
+```
+Request of all shops
+```markdown
+GET /api/shops?apikey=123
+```
+Request of all shops sorted by shop category ASC and id DESC
+```markdown
+GET /api/shops?apikey=123&sort[]=category&sort[]=id,desc
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+Request of all shops, that has products with price **is** 20
+```markdown
+GET /api/shops?apikey=123&products[price]=20
+```
+Request of all shops, that has products with price **less** 20
+```markdown
+GET /api/shops?apikey=123&products[price]=lt:20
+```
+Request of all shops, that has products with price **less or equel** 20
+```markdown
+GET /api/shops?apikey=123&products[price]=lte:20
+```
+Request of all shops, that has products with price **less or equel 20 and name contains "s"**
+```markdown
+GET /api/shops?apikey=123&products[price]=lte:20&products[name]=like:%s%
+```
 
-### Jekyll Themes
+# Code Description
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/DenisPetrov100/Laravel-orm-repository-api/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Working with DB is implemented though Repository design pattern
 
-### Support or Contact
+Directory `app/Repository/Eloquent/Shop/Filters/` storing all the filters available in the API. 
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+If API gequest consists params like, for example "products=xxx", then ShopsRepository will try to find Products in this directory, then implement it.
+This approach simplefies introducing of new params to request. 
+
+If you need to implement, for example, Manufacturers in this API, just add a new file `app/Repository/Eloquent/Shop/Filters/Manufacturers.php`
+Then request of all shops, that has manufacturers with **name contains "LTD"**
+```markdown
+GET /api/shops?apikey=123&manufacturers[name]=like:%LTD%
+```
