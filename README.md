@@ -1,5 +1,5 @@
 # Description
-See `/docs/index.md`
+See details in [repo's GitHub page](https://denispetrov100.github.io/Laravel-orm-repository-api/)
 # Installation: fast start ###
 copy .ENV vars from .env.sqlite.example
 
